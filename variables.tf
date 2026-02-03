@@ -5,3 +5,8 @@ variable "aws_region" {
 variable "project_name" {
     default = "jru-pulse"
 }
+
+variable "app_count" {
+  type    = number
+  default = 1
+}
