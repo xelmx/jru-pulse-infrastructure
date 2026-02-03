@@ -1,6 +1,6 @@
 # Python API log group
 
-resource "aws_cloudwatch_log_group" "python-api" {
+resource "aws_cloudwatch_log_group" "python_api" {
     name = "/ecs/${var.project_name}-python-api"
     retention_in_days = 7
 
@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_group" "python-api" {
 
 
 # PHP Web App Log group
-resource "aws_cloudwatch_log_group" "web-app" {
+resource "aws_cloudwatch_log_group" "web_app" {
     name = "/ecs/${var.project_name}-web-app"
     retention_in_days = 7
 
