@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "main" {
     name = "${var.project_name}-ecs-cluster"
 
     setting {
-        name = "containerInsights"
+        name = "containerInsights" #Activates Cloudwatch container Insights
         value = "enabled"
     }
 
