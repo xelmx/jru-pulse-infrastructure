@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "web_app" {
     port = 80
     protocol = "HTTP"
     vpc_id = aws_vpc.main.id
-    target_type = "ip" #require for fargate
+    target_type = "ip" 
 
     health_check {
       path = "/"
@@ -75,7 +75,7 @@ resource "aws_lb_listener_rule" "api_routing" {
 
     condition {
       path_pattern {
-        values = ["/api/*", "/docs", "/openapi.json"]
+        values = ["/ai/*", "/nlp/*", "/docs", "/openapi.json"]
       }
     }
 }
