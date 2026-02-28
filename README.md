@@ -24,7 +24,7 @@ The platform is built on a **Microservices Architecture** using a "Separation of
 
 ### -------------
 
-![JRU-PULSE CI/CD Pipeline](/img/JRU PULSE_AWS Cloud CI_CD Pipeline.png)
+![JRU-PULSE CI/CD Pipeline] (<img/JRU-PULSE_AWS-Cloud-CI_CD-Pipeline.png>)
 
 ### Architecture Breakdown
 - **Identity & Security:** GitHub Actions authenticates via **OIDC** to eliminate permanent credentials. Sensitive data is injected into containers at runtime via **AWS Secrets Manager**.
