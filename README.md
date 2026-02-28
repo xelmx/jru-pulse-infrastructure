@@ -20,3 +20,14 @@ The platform is built on a **Microservices Architecture** using a "Separation of
 - `alb.tf`: Application Load Balancer with Path-Based Routing (`/ai` vs `/`).
 - `secrets.tf`: Encrypted credential management.
 - `iam.tf`: OIDC Provider and Least Privilege roles.
+
+
+### -------------
+
+![JRU-PULSE CI/CD Pipeline ](img/JRU%20PULSE_AWS%20Cloud%20CI_CD%20Pipeline.png)
+
+### Architecture Breakdown
+- **Identity & Security:** GitHub Actions authenticates via **OIDC** to eliminate permanent credentials. Sensitive data is injected into containers at runtime via **AWS Secrets Manager**.
+- **Traffic Management:** **Amazon CloudFront** provides global HTTPS delivery. An **Application Load Balancer** performs path-based routing to decouple the PHP Frontend and the Python NLP Backend.
+- **Compute:** Services are hosted on **AWS ECS Fargate**, providing a serverless, scalable container environment.
+- **Database:** A private **Amazon RDS (MySQL)** instance ensures data persistence, isolated from the public internet for maximum security.
