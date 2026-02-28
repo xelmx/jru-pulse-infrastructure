@@ -55,7 +55,6 @@ resource "aws_ecs_service" "python_api" {
 }
 
 
-
 # PHP Web App Task Definition
 resource "aws_ecs_task_definition" "web_app" {
   family = "${var.project_name}-web-app"
@@ -71,6 +70,21 @@ resource "aws_ecs_task_definition" "web_app" {
       name = "web-app"
       image  = "508972673137.dkr.ecr.ap-southeast-1.amazonaws.com/jru-pulse-web-app:latest"
       essential = true
+     
+      secrets = [
+          { name = "MYSQL_USER", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:username::"},
+          { name = "MYSQL_PASSWORD", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:password::"},
+          { name = "MYSQL_HOST", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:host::"},
+          { name = "MYSQL_DATABASE", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:db_name::"},
+          { name = "GOOGLE_CLIENT_ID", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:google_client_id::"},
+          { name = "GOOGLE_REDIRECT_URI", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:google_redirect_uri::" },
+          { name = "GOOGLE_CLIENT_SECRET", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:google_client_secret::" },
+          { name = "MAIL_HOST", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:mail_host::" },
+          { name = "MAIL_PORT", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:mail_port::" },
+          { name = "MAIL_USERNAME", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:mail_username::" },
+          { name = "MAIL_PASSWORD", valueFrom = "${aws_secretsmanager_secret.db_credentials.arn}:mail_password::" }
+      ]
+
       portMappings = [
         {
           containerPort = 80
@@ -78,7 +92,8 @@ resource "aws_ecs_task_definition" "web_app" {
         }
       ]
       environment = [
-        { name = "AI_PYTHON_API", value = "http://${aws_lb.main.dns_name}/api" }
+        { name = "AI_PYTHON_API", value = "http://${aws_lb.main.dns_name}/ai" },
+        { name  = "APP_BASE_URL", value = "https://dnzjwkw4fgfzp.cloudfront.net"}
       ]
       logConfiguration = {
         logDriver = "awslogs"
