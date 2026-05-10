@@ -12,3 +12,6 @@ crash.log
 .env
 
 .DS_Store
+
+.secrets.tf
+.variables.tf
